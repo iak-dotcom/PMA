@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.khan.pma.entities.Employee;
 import com.khan.pma.entities.Project;
+import com.khan.pma.repository.EmployeeRepository;
 import com.khan.pma.repository.ProjectRepository;
 
 
@@ -18,6 +21,8 @@ public class ProjectController {
 	@Autowired
 	ProjectRepository proRepo;
 	
+	@Autowired
+	EmployeeRepository empRepo;
 	//To activate and display the Link when you cick frm home
 	@RequestMapping
 	public String displayprojects(Model model) {
@@ -29,7 +34,9 @@ public class ProjectController {
 	@RequestMapping("/new")
 	public String displayProjectForm(Model model) {
 		Project aProject = new Project();
+		List<Employee> employees = empRepo.findAll();
 		model.addAttribute("project",aProject);
+		model.addAttribute("allEmployees", employees);
 		return "projects/new-project";
 	}
 	
@@ -37,7 +44,7 @@ public class ProjectController {
 	public String createProject(Project project, Model model) {
 		//this method would handle saving data in database
 		proRepo.save(project);
-		//redirect is used to prevent duplicate submissions
-		return "redirect:/projects/new";
+		
+			return "redirect:/projects";
 	}
-	}
+}
