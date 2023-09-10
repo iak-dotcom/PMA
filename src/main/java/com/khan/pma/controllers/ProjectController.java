@@ -14,37 +14,37 @@ import com.khan.pma.entities.Project;
 import com.khan.pma.repository.EmployeeRepository;
 import com.khan.pma.repository.ProjectRepository;
 
-
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 	@Autowired
 	ProjectRepository proRepo;
-	
+
 	@Autowired
 	EmployeeRepository empRepo;
-	//To activate and display the Link when you cick frm home
+
+	// To activate and display the Link when you cick frm home
 	@RequestMapping
 	public String displayprojects(Model model) {
-		List<Project>projects = proRepo.findAll();
-		model.addAttribute("projects",projects);
+		List<Project> projects = proRepo.findAll();
+		model.addAttribute("projects", projects);
 		return "projects/list-projects";
 	}
-	
+
 	@RequestMapping("/new")
 	public String displayProjectForm(Model model) {
 		Project aProject = new Project();
 		List<Employee> employees = empRepo.findAll();
-		model.addAttribute("project",aProject);
+		model.addAttribute("project", aProject);
 		model.addAttribute("allEmployees", employees);
 		return "projects/new-project";
 	}
-	
+
 	@PostMapping("/save")
 	public String createProject(Project project, Model model) {
-		//this method would handle saving data in database
+		// this method would handle saving data in database
 		proRepo.save(project);
-		
-			return "redirect:/projects";
+
+		return "redirect:/projects";
 	}
 }

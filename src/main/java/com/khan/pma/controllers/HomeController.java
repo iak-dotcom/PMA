@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.khan.pma.dto.EmployeeProject;
 import com.khan.pma.entities.Employee;
 import com.khan.pma.entities.Project;
 import com.khan.pma.repository.EmployeeRepository;
@@ -26,10 +27,16 @@ public class HomeController {
 		model.addAttribute("projectsList", projects);
 
 		// we are quering the database for employees
-		List<Employee> employees = empRepo.findAll();
-		model.addAttribute("employeesList", employees);
+//		List<Employee> employees = empRepo.findAll();
+//		model.addAttribute("employeesList", employees);
+//		return "main/home";
+
+		List<EmployeeProject> employeesProjectCnt = empRepo.employeeProjects();
+		model.addAttribute("employeesListProjectsCnt", employeesProjectCnt);
 		return "main/home";
 
+	
+	
 	}
 
 }
