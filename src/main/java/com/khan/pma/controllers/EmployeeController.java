@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.khan.pma.dao.EmployeeRepository;
 import com.khan.pma.entities.Employee;
-import com.khan.pma.repository.EmployeeRepository;
 
 @Controller
 @RequestMapping("/employees")

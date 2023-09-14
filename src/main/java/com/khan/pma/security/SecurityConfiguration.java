@@ -1,6 +1,6 @@
 package com.khan.pma.security;
 
-import javax.activation.DataSource;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,35 +14,44 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	@Autowired
+	DataSource dataSource;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptEncoder;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-		.withUser("myuser").password("pass").roles("USER")
-		.and()
-		.withUser("imran").password("pass2").roles("USER")
-		.and()
-		.withUser("managerUser").password("pass3").roles("ADMIN");
+	
+		auth.jdbcAuthentication()
+		.usersByUsernameQuery("select username, password, enabled" +
+		"from users where username=?")
+		.authoritiesByUsernameQuery("select username, role " +
+				"from user_accounts where username = ?")
+		.dataSource(dataSource)
+		.passwordEncoder(bCryptEncoder);
 	}
 
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		// For temporary use, just want it to work
-		return NoOpPasswordEncoder.getInstance();
-	}
-
-	// here we can define that what logged in user can do
+//	@Bean
+//	public PasswordEncoder getPasswordEncoder() {
+//	//For temporary use, just want it to work
+//		return NoOpPasswordEncoder.getInstance();	
+//	}
+	//here we can define that what logged in user can do
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-
-			.antMatchers("/projects/new").hasRole("ADMIN").antMatchers("/projects/save").hasRole("ADMIN")
-				.antMatchers("/employees/new").hasRole("ADMIN").antMatchers("/employees/save").hasRole("ADMIN")
-
-				.antMatchers("/", "/**").permitAll().and().formLogin();
-
-		http.csrf().disable();
-
+	http.authorizeRequests()
+	//ADMIN must be on top
+		.antMatchers("/projects/new").hasRole("ADMIN") //1st periority
+		.antMatchers("/projects/save").hasRole("ADMIN")
+		.antMatchers("/employees/new").hasRole("ADMIN")//2nd periority
+		.antMatchers("/employees/save").hasRole("ADMIN")
+		.antMatchers("/","**").permitAll() //3rd periority(if we put this line on top it would allow everything to work)
+		.and()
+		.formLogin();
+	//if you want to add custom login page (.formLogin().loginPage("/login-page")
 	}
 }
+

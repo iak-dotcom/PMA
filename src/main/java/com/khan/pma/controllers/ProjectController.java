@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.khan.pma.dao.EmployeeRepository;
+import com.khan.pma.dao.ProjectRepository;
 import com.khan.pma.entities.Employee;
 import com.khan.pma.entities.Project;
-import com.khan.pma.repository.EmployeeRepository;
-import com.khan.pma.repository.ProjectRepository;
 
 @Controller
 @RequestMapping("/projects")

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.khan.pma.dao.EmployeeRepository;
+import com.khan.pma.dao.ProjectRepository;
 import com.khan.pma.dto.ChartData;
 import com.khan.pma.dto.EmployeeProject;
 import com.khan.pma.entities.Project;
-import com.khan.pma.repository.EmployeeRepository;
-import com.khan.pma.repository.ProjectRepository;
 
 @Controller
 public class HomeController {

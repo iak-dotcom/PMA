@@ -1,4 +1,4 @@
-package com.khan.pma.repository;
+package com.khan.pma.dao;
 
 import java.util.List;
 
