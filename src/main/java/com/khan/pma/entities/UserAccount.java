@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Setter
 @Getter
 @Entity
@@ -20,26 +21,23 @@ import lombok.Setter;
 public class UserAccount {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="user_accounts_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_accounts_seq")
 	@Column(name = "user_id")
 	private long userId;
-	
+
 	@Column(name = "username")
 	private String username;
-	
+
 	private String email;
-	
+
 	private String password;
-	
-	
+
 	private String role;
 
 	private boolean enabled = true;
-	
+
 	public UserAccount() {
-		
+
 	}
 
-
-	
 }

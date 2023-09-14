@@ -13,21 +13,23 @@ import com.khan.pma.entities.UserAccount;
 @Controller
 public class SecurityController {
 	@Autowired
-	UserAccountRepository accountRepo; //create an interface in dao
-	
+	UserAccountRepository accountRepo; // create an interface in dao
+
 	@Autowired
 	BCryptPasswordEncoder bCryptEncoder;
-	
+
 	@GetMapping("/register")
 	public String register(Model model) {
 		UserAccount userAccount = new UserAccount();
 		model.addAttribute("userAccount", userAccount);
 		return "security/register";
 	}
-	//To save it into database
+
+	// To save it into database
 	@PostMapping("/register/save")
-	public String saveUser(Model model,UserAccount user) {
-		user.setPassword(bCryptEncoder.encode(user.getPassword()));   //here we will encrypt the password or envoke encoder
+	public String saveUser(Model model, UserAccount user) {
+		user.setPassword(bCryptEncoder.encode(user.getPassword())); // here we will encrypt the password or envoke
+																	// encoder
 		accountRepo.save(user);
 		return "redirect:/";
 	}
