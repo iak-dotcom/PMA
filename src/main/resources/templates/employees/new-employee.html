@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layouts :: header">
-</header>
+    <!-- Include Bootstrap CSS file here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
 <body>
-	<nav th:replace="layouts :: navbar"></nav>
-	<div class="container">
-		<form action="/employees/save" th:object="${employee}" method="POST">
-			<input type="text" placeholder="First Name"
-				th:field="${employee.firstName}"> <input type="text"
-				placeholder="Last Name" th:field="${employee.lastName}"> <input
-				type="text" placeholder="Email Address" th:field="${employee.email}">
+    <nav th:replace="layouts :: navbar"></nav>
+    <div class="container mt-5">
+        <form action="/employees/save" th:object="${employee}" method="POST">
 
-<!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
+            <!-- this will be used to bind to the employee that was cleared on(USED FOR UPDATES) -->
+            <input type="hidden" th:field="${employee.employeeId}" />
 
-			<button type="submit">Create Employee</button>
-		</form>
-	</div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First Name" th:field="${employee.firstName}">
+                <span style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="${employee.firstName}"></span>
+            </div>
 
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Last Name" th:field="${employee.lastName}">
+                <span style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="${employee.lastName}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="text" class="form-control" id="email" placeholder="Email Address" th:field="${employee.email}">
+                <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="${employee.email}"></span>
+            </div>
+
+            <!-- CSRF token if you're using Spring Security CSRF protection -->
+            <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
+
+            <button type="submit" class="btn btn-primary">Create / Update Employee</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS file here (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -1,35 +1,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layouts :: header">
-</header>
+    <!-- Include Bootstrap CSS file here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
 <body>
-	<nav th:replace="layouts :: navbar"></nav>
-	<div class="container">
-		<form action="/projects/save" th:object="${project}" method="POST">
-			<input type="text" placeholder="Project Name"
-				th:field="${project.name}"> <select
-				th:field="${project.stage}">
-				<option th:value="NOTSTARTED">Not Started</option>
-				<option th:value="INPROGRESS">In Progress</option>
-				<option th:value="COMPLETED">Completed</option>
-			</select>
-			<textarea type="text" placeholder="Enter Project Description"
-				th:field="${project.description}"></textarea>
-				
-<!--To add multiple names  -->
-			<select th:field="*{employees}" multiple="multiple">
+    <nav th:replace="layouts :: navbar"></nav>
+    <div class="container mt-5">
+        <form action="/projects/save" th:object="${project}" method="POST">
+            <input type="hidden" th:field="${project.projectId}" />
 
-				<option th:each="employee: ${allEmployees}" 
-					th:value="${employee.employeeId}" th:text="${employee.firstName}">
-				</option>
-			</select>
-	
-	<!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" class="form-control" id="projectName" placeholder="Project Name" th:field="${project.name}">
+                <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="${project.name}"></span>
+            </div>
 
-			<button type="submit">Create Project</button>
-		</form>
-	</div>
+            <div class="form-group">
+                <label for="stage">Stage</label>
+                <select class="form-control" id="stage" th:field="${project.stage}">
+                    <option value="NOTSTARTED">Not Started</option>
+                    <option value="INPROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label for="projectDescription">Project Description</label>
+                <textarea class="form-control" id="projectDescription" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+                <span style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="${project.description}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="employees">Select Employees</label>
+                <select class="form-control" id="employees" th:field="*{employees}" multiple="multiple">
+                    <option th:each="employee: ${allEmployees}" th:value="${employee.employeeId}" th:text="${employee.firstName}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- CSRF token if you're using Spring Security CSRF protection -->
+            <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
+
+            <button type="submit" class="btn btn-primary">Enter Project</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS file here (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

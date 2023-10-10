@@ -20,4 +20,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>{
 			"GROUP BY stage")
 	
 public List<ChartData> getProjectStatus();
+
+	public Project findByProjectId(long theId);
 }

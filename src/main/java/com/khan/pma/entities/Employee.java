@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.khan.pma.validators.UniqueValue;
@@ -32,14 +33,14 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
     
-    @NotNull
+    @NotBlank(message="Must provide a first name")
     @Size(min=2, max =50)
     private String firstName;
-    @NotNull
+    @NotBlank(message="Must provide a last name")
     @Size(min=2, max =50)
     private String lastName;
-    @NotNull
-    @Email
+    @NotBlank
+    @Email(message ="Must provide a valid email address")
     @UniqueValue
     private String email;
 

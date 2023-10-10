@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,10 +25,14 @@ import lombok.Setter;
 @Entity
 public class Project {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO) //this must be Auto
 	private long projectId;
+	@NotBlank(message="Must provide a project name")
+	@Size(min=2, max =50)
 	private String name;
 	private String stage; // Non-started,completed,inprogress
+	@NotBlank(message="Must provide a description")
+	@Size(min=2, max =50)
 	private String description;
 
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
