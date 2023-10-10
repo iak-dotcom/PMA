@@ -11,6 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.khan.pma.validators.UniqueValue;
 
 import lombok.Data;
 import lombok.Getter;
@@ -24,13 +31,21 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long employeeId;
-
+    
+    @NotNull
+    @Size(min=2, max =50)
     private String firstName;
+    @NotNull
+    @Size(min=2, max =50)
     private String lastName;
+    @NotNull
+    @Email
+    @UniqueValue
     private String email;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, fetch = FetchType.LAZY)
     @JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+  @JsonIgnore 
     private List<Project> projects;
 
     // default constructor

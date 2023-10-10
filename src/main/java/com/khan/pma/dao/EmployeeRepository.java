@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.khan.pma.dto.EmployeeProject;
 import com.khan.pma.entities.Employee;
-
+@RepositoryRestResource(collectionResourceRel = "apiemployees", path="apiemployees")
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 	@Override
 	public List <Employee> findAll();
@@ -18,5 +19,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 			+ "GROUP BY e.first_name, e.last_name ORDER BY 3 DESC;")
 	
 	public List<EmployeeProject> employeeProjects();
+
+
+	public Employee findByEmail(String value);
+	
+//	public Employee findByEmployeeId(long id);
 
 }

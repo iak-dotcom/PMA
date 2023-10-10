@@ -49,8 +49,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/projects/save").hasAuthority("ADMIN")
 		.antMatchers("/employees/new").hasAuthority("ADMIN")//2nd periority
 		.antMatchers("/employees/save").hasAuthority("ADMIN")
+		.antMatchers("/register").hasAuthority("ADMIN")
 		.antMatchers("/","**").permitAll() //3rd periority(if we put this line on top it would allow everything to work)
 		.and()
+		.csrf().disable()
 		.formLogin();
 	//if you want to add custom login page (.formLogin().loginPage("/login-page")
 	}
