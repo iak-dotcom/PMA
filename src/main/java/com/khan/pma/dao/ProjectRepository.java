@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.khan.pma.dto.ChartData;
-import com.khan.pma.dto.EmployeeProject;
+import com.khan.pma.dto.TimeChartData;
 import com.khan.pma.entities.Project;
 
 public interface ProjectRepository extends JpaRepository<Project, Long>{
@@ -22,4 +22,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long>{
 public List<ChartData> getProjectStatus();
 
 	public Project findByProjectId(long theId);
+	
+	@Query(nativeQuery = true, value = "SELECT name as projectName, start_date as startDate, end_date as endDate "
+	        + "FROM project")
+	public List<TimeChartData> getTimeData();
+
+
 }

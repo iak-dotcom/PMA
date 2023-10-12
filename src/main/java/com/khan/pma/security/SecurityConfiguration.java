@@ -47,8 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//ADMIN must be on top
 		.antMatchers("/projects/new").hasAuthority("ADMIN") //1st periority
 		.antMatchers("/projects/save").hasAuthority("ADMIN")
+		.antMatchers("/projects/update").hasAuthority("ADMIN")
+		.antMatchers("/projects/delete").hasAuthority("ADMIN")
 		.antMatchers("/employees/new").hasAuthority("ADMIN")//2nd periority
 		.antMatchers("/employees/save").hasAuthority("ADMIN")
+		.antMatchers("/employees/update").hasAuthority("ADMIN")
+		.antMatchers("/employees/delete").hasAuthority("ADMIN")
 		.antMatchers("/register").hasAuthority("ADMIN")
 		.antMatchers("/","**").permitAll() //3rd periority(if we put this line on top it would allow everything to work)
 		.and()

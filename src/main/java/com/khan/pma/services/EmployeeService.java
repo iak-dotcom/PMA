@@ -42,4 +42,16 @@ public class EmployeeService {
 		
 	}
 
+
+	public Employee updateEmployee(Employee employee) {
+		// TODO Auto-generated method stub
+		return empRepo.save(employee);
+	}
+
+
+	public boolean isEmailAlreadyInUse(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

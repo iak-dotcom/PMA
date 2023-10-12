@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head th:replace="layouts :: header">
     <!-- Include Bootstrap CSS file here -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-
 <body>
     <nav th:replace="layouts :: navbar"></nav>
     <div class="container mt-5">
-        <form action="/employees/save" th:object="${employee}" method="POST">
+        <form action="/employees/update" th:object="${employee}" method="POST">
 
-            <!-- this will be used to bind to the employee that was cleared on(USED FOR UPDATES) -->
-         <!--    <input type="hidden" th:field="${employee.employeeId}" /> -->
+            <!-- this will be used to bind to the employeeId that was cleared on(USED FOR UPDATES) -->
+            <input type="hidden" th:field="${employee.employeeId}" />
 
+            <!-- Employee details input fields -->
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" class="form-control" id="firstName" placeholder="First Name" th:field="${employee.firstName}">
@@ -29,19 +27,18 @@
 
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="text" class="form-control" id="email" placeholder="Email Address" th:field="${employee.email}">
+                <input type="text" class="form-control" id="email" placeholder="Email Address" th:field="${employee.email}" readonly>
+                <!-- Display email as readonly, not editable during update -->
                 <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="${employee.email}"></span>
             </div>
 
             <!-- CSRF token if you're using Spring Security CSRF protection -->
             <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
 
-            <button type="submit" class="btn btn-primary">Create / Update Employee</button>
+            <button type="submit" class="btn btn-primary">Update Employee</button>
         </form>
     </div>
-
     <!-- Include Bootstrap JS file here (optional) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-
 </html>

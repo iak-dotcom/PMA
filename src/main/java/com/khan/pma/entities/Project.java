@@ -1,5 +1,8 @@
 package com.khan.pma.entities;
 
+
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,6 +40,13 @@ public class Project {
 	@Size(min=2, max =50)
 	private String description;
 
+//	@NotBlank(message="date cannot be empty")
+	@DateTimeFormat(iso = ISO.DATE)
+    private Date startDate;
+//	@NotBlank(message="date cannot be empty")
+    @DateTimeFormat(iso = ISO.DATE)
+    private Date endDate;
+    
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))

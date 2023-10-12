@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.khan.pma.dao.EmployeeRepository;
 import com.khan.pma.dao.ProjectRepository;
+import com.khan.pma.dto.TimeChartData;
 import com.khan.pma.entities.Employee;
 import com.khan.pma.entities.Project;
 import com.khan.pma.services.ProjectService;
@@ -50,17 +53,16 @@ public class ProjectController {
 
 	@PostMapping("/save")
 	public String createProject(@Valid Project project, Errors errors, Model model) {
-/*		the following two line fixed the error when the validation showed up employee list was
-		disappearing.when you click enter project on blank form.*/
+		/*
+		 * the following two line fixed the error when the validation showed up employee
+		 * list was disappearing.when you click enter project on blank form.
+		 */
 		List<Employee> employees = empRepo.findAll();
 		model.addAttribute("allEmployees", employees);
-		
 		if (errors.hasErrors())
-
-			return "projects/new-project";
+		return "projects/new-project";
 		// this method would handle saving data in database
 		proRepo.save(project);
-
 		return "redirect:/projects";
 	}
 
@@ -70,7 +72,7 @@ public class ProjectController {
 		List<Employee> employees = empRepo.findAll();
 		model.addAttribute("project", thePro);// this will bind the data in the field
 		model.addAttribute("allEmployees", employees);
-		return "projects/new-project";
+		return "projects/update-project";
 	}
 
 	@GetMapping("/delete")
@@ -79,5 +81,19 @@ public class ProjectController {
 		proService.delete(thePro);
 		return "redirect:/projects";
 	}
+	@GetMapping("/timelines")
+	public String displayProjectTimeLines(Model model) throws JsonProcessingException{
+		List<TimeChartData> timelineData = proService.getTimeData();
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonTimelineString = objectMapper.writeValueAsString(timelineData);
+		
+		System.out.println("--------------project timelines--------------");
+		System.out.println(jsonTimelineString);
+		
+		model.addAttribute("projectTimeList", jsonTimelineString);
+		return "projects/project-timelines";
+		
+		}
+
 
 }

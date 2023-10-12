@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.khan.pma.dao.ProjectRepository;
 import com.khan.pma.dto.ChartData;
+import com.khan.pma.dto.TimeChartData;
 import com.khan.pma.entities.Project;
 
 @Service
@@ -42,7 +43,7 @@ public class ProjectService {
 	}
 	
 	
-//	public List<TimeChartData> getTimeData(){
-//		return proRepo.getTimeData();
-//	}
+	public List<TimeChartData> getTimeData(){
+		return proRepo.getTimeData();
+	}
 }

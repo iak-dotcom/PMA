@@ -41,7 +41,7 @@ public class Employee {
     private String lastName;
     @NotBlank
     @Email(message ="Must provide a valid email address")
-    @UniqueValue
+//    @UniqueValue
     private String email;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST }, fetch = FetchType.LAZY)

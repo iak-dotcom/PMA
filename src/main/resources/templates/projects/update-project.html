@@ -1,22 +1,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layouts :: header">
-<!-- Include Bootstrap CSS file here -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	
+    <!-- Include Bootstrap CSS file here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 <body>
 	<nav th:replace="layouts :: navbar"></nav>
 	<div class="container mt-5">
 		<form action="/projects/save" th:object="${project}" method="POST">
-	<!-- 		<input type="hidden" th:field="${project.projectId}" /> -->
+		<input type="hidden" th:field="${project.projectId}" /> 
 
 			<div class="form-group">
 				<label for="projectName">Project Name</label> <input type="text"
@@ -57,22 +56,22 @@
 			<!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
 			Project Start Date:
 			<div class="form-group row">
-			<input id="dp3" type="date" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${project.startDate}">
+			<input id="dp3" type="date" class="mb-4 col-2 col-xs-4" value="Start Date" th:field="${project.startDate}"/>
 			</div>
 			
 			Project End Date:
 			<div class="form-group row">
-			<input id="dp4" type="date" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${project.endDate}">
+			<input id="dp4" type="date" class="mb-4 col-2 col-xs-4" value="End Date" th:field="${project.endDate}"/>
 			</div>
 <!--No need to use it  -->
-<!-- <script type="text/javascript">
+<!--  <script type="text/javascript">
     $(document).ready(function(){
         $('#dp3').datepicker({
-            format: 'dd/MM/yyyy', // Set the date format here
+            format: 'MM/dd/yyyy', // Set the date format here
             autoclose: true
         });
         $('#dp4').datepicker({
-            format: 'dd/MM/yyyy', // Set the date format here
+            format: 'MM/dd/yyyy', // Set the date format here
             autoclose: true
         });
     });
